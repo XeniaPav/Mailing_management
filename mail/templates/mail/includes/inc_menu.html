@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Сервис рассылок</a>
+                <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+
+                            <a class="nav-link active" aria-current="page" href="{% url 'mail:home' %}">Главная</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                               href="{% url 'mail:newsletter_list' %}">Рассылки</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'mail:message_list' %}">Сообщения</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'mail:client_list' %}">Клиенты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                               href="{% url 'blog:list' %}">Блог</a>
+                        </li>
+                        {% endif %}
+                        {% if perms.users.can_block_user %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'users:user_list' %}">Пользователи</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'users:profile' %}">Профиль</a>
+                        </li>
+                        {% endif %}
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'users:login' %}">Вход для
+                                пользователей</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'users:register' %}">Регистрация</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

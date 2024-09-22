@@ -1,0 +1,39 @@
+{% extends 'mail/base.html' %}
+{% load my_tags %}
+{% block content %}
+<br>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-5">Самые новые новости</h1>
+    <a class="btn btn-dark col-md-8" href="{% url 'blog:create' %}" role="button">Поделиться новостью</a>
+</div>
+<div class="col-md-12">
+</div>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for blog in blog_list %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{ blog.photo | media_filter }}">
+                    <div class="card-body">
+                        <p class="card-text">Заголовок: {{ blog.title }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-success" href="{% url 'blog:blog_detail' blog.pk %}" role="button">Читать</a>
+                                {% if user == blog.owner or user.is_staff %}
+                                <a class="btn btn-warning" href="{% url 'blog:blog_update' blog.pk %}" role="button">Редактировать</a>
+                                <a class="btn btn-danger" href="{% url 'blog:blog_delete' blog.pk %}" role="button">Удалить</a>
+                                {% endif %}
+                            </div>
+                            <small class="text-body-secondary"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
